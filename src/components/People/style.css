@@ -1,0 +1,10 @@
+.people {
+  position: absolute;
+  transform-origin: 50% 100%;
+  background: cyan;
+  width: 16px;
+  height: 16px;
+  padding: 16px;
+  text-align: center;
+  border-radius: 100%;
+}
