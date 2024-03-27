@@ -1,4 +1,4 @@
-import "./style.css";
+import './style.css';
 
 interface Props {
   i: number;
@@ -6,12 +6,12 @@ interface Props {
   y: number;
 }
 
-const People = (props: Props) => {
-  const { i, x, y } = props
-  
+export function People(props: Props) {
+  const { i, x, y } = props;
+
   return (
     <div
-      className='people'
+      className="people"
       style={{
         transform: `translate(${x}px, ${y}px)`,
       }}
@@ -19,6 +19,6 @@ const People = (props: Props) => {
       {i + 1}
     </div>
   );
-};
+}
 
 export default People;

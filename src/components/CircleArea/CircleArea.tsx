@@ -1,14 +1,12 @@
-import { PropsWithChildren } from "react";
-import "./style.css";
+import { PropsWithChildren } from 'react';
+import './style.css';
 
-const CircleArea = ({ children }: PropsWithChildren<unknown>) => {
+function CircleArea({ children }: PropsWithChildren<unknown>) {
   return (
     <div className="container">
-      <div className="circleArea">
-        {children}
-      </div>
+      <div className="circleArea">{children}</div>
     </div>
   );
-};
+}
 
 export default CircleArea;
