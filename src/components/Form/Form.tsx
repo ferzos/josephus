@@ -1,29 +1,32 @@
 import { MouseEvent, useState } from 'react';
 
 interface Props {
+  label: string;
   onSubmit: (input: number) => void;
 }
 
 function Form(props: Props) {
-  const { onSubmit } = props;
+  const { label, onSubmit } = props;
 
-  const [numberOfPeopleInput, setNumberOfPeopleInput] = useState<number>();
+  const [numberInput, setNumberInput] = useState<number>();
 
   const handleSubmit = (e: MouseEvent) => {
     e.preventDefault();
 
-    if (numberOfPeopleInput) {
-      onSubmit(numberOfPeopleInput);
+    if (numberInput) {
+      onSubmit(numberInput);
     }
   };
 
   return (
-    <form>
+    <form onSubmit={(e) => e.preventDefault()}>
+      <label htmlFor="numberInput">{label}</label>
+      <br />
       <input
         type="number"
-        name="number of people"
-        id="numberOfPeople"
-        onChange={(e) => setNumberOfPeopleInput(Number(e.target.value))}
+        name="numberInput"
+        id="numberInput"
+        onChange={(e) => setNumberInput(Number(e.target.value))}
       />
       <button onClick={handleSubmit} type="button">
         Submit

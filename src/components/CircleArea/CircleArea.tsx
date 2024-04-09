@@ -3,7 +3,7 @@ import './style.css';
 
 function CircleArea({ children }: PropsWithChildren<unknown>) {
   return (
-    <div className="container">
+    <div className="circleAreaContainer">
       <div className="circleArea">{children}</div>
     </div>
   );

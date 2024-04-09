@@ -14,6 +14,7 @@ function App() {
   const [numberOfPeople, setNumberOfPeople] = useState(
     DEFAULT_NUMBER_OF_PEOPLE,
   );
+  const [initialPerson, setInitialPerson] = useState<number>();
   const maxRadius = numberOfPeople * MAX_RADIUS_RATIO;
   const radiusOfPeople = numberOfPeople * RADIUS_RATIO;
   const radius = radiusOfPeople > maxRadius ? maxRadius : radiusOfPeople;
@@ -33,13 +34,35 @@ function App() {
     return components;
   }, [numberOfPeople, radius]);
 
+  const handleSubmitInitialPerson = (initialPersonIndex: number) => {
+    if (initialPersonIndex > numberOfPeople) {
+      alert("There's no such person");
+      return;
+    }
+
+    setInitialPerson(initialPersonIndex - 1);
+  };
+
   return (
-    <div>
-      <Form onSubmit={setNumberOfPeople} />
+    <div className="container">
+      <div className="formCenter">
+        <Form label="Input number of people:" onSubmit={setNumberOfPeople} />
+        <br />
+        <Form
+          label="Input who first to kill:"
+          onSubmit={handleSubmitInitialPerson}
+        />
+      </div>
 
       <CircleArea>
         {people.map(({ i, x, y }) => (
-          <PeoplePawn key={i} i={i} x={x} y={y} />
+          <PeoplePawn
+            key={i}
+            i={i}
+            x={x}
+            y={y}
+            isInitial={initialPerson === i}
+          />
         ))}
       </CircleArea>
     </div>
