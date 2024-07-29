@@ -4,12 +4,12 @@ interface Props {
   i: number;
   x: number;
   y: number;
-  isInitial?: boolean;
+  isKilled?: boolean;
 }
 
 export function People(props: Props) {
   const {
-    i, x, y, isInitial = false,
+    i, x, y, isKilled = false,
   } = props;
 
   return (
@@ -17,7 +17,7 @@ export function People(props: Props) {
       className="people"
       style={{
         transform: `translate(${x}px, ${y}px)`,
-        ...(isInitial && { backgroundColor: 'red' }),
+        ...(isKilled && { backgroundColor: 'red' }),
       }}
     >
       {i + 1}
