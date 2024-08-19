@@ -12,14 +12,14 @@ function KillerInput(props: Props) {
     numberOfPeople,
   });
 
-  const handleSubmitInitialPerson = () => {
+  const handleStartsTheKillRotation = () => {
     const theDeads = createKillRotation(0);
 
     onSubmit(theDeads);
   };
 
   return (
-    <button type="button" onClick={handleSubmitInitialPerson}>
+    <button type="button" onClick={handleStartsTheKillRotation}>
       START
     </button>
   );
