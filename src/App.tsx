@@ -6,16 +6,17 @@ import Form from './components/Form/Form';
 import CircleArea from './components/CircleArea/CircleArea';
 import PeoplePawn from './components/People/People';
 import KillerInput from './components/KillerInput/KillerInput';
+import { useDeadSequence } from './hooks/useDeadSequence';
 
 const MAX_RADIUS_RATIO = 7;
 const RADIUS_RATIO = 13;
 const DEFAULT_NUMBER_OF_PEOPLE = 10;
 
 function App() {
+  const { deadSequence, setDeadSequence } = useDeadSequence();
   const [numberOfPeople, setNumberOfPeople] = useState(
     DEFAULT_NUMBER_OF_PEOPLE,
   );
-  const [theDeads, setTheDeads] = useState<number[]>([]);
 
   const maxRadius = numberOfPeople * MAX_RADIUS_RATIO;
   const radiusOfPeople = numberOfPeople * RADIUS_RATIO;
@@ -39,7 +40,7 @@ function App() {
   const handleInputNumberOfPeople = (inputNumberOfPeople: number) => {
     setNumberOfPeople(inputNumberOfPeople);
     // Reset the deads
-    setTheDeads([]);
+    setDeadSequence([]);
   };
 
   return (
@@ -50,7 +51,10 @@ function App() {
           onSubmit={handleInputNumberOfPeople}
         />
         <br />
-        <KillerInput numberOfPeople={numberOfPeople} onSubmit={setTheDeads} />
+        <KillerInput
+          numberOfPeople={numberOfPeople}
+          onSubmit={setDeadSequence}
+        />
       </div>
 
       <CircleArea>
@@ -60,7 +64,9 @@ function App() {
             i={i}
             x={x}
             y={y}
-            isKilled={theDeads.includes(i)}
+            isKilled={deadSequence.some(
+              (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
+            )}
           />
         ))}
       </CircleArea>
