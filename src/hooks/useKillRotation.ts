@@ -28,7 +28,7 @@ export const useKillRotation = (params: Params) => {
       theDeads.push(killed);
     }
 
-    return theDeads;
+    return { theDeads, finalKiller: killer };
   };
 
   return {
