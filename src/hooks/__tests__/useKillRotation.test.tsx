@@ -31,7 +31,7 @@ describe('useKillRotation', () => {
 
       const theDeads = result.current
         .createKillRotation(0)
-        .sort((a, b) => a - b);
+        .theDeads.sort((a, b) => a - b);
 
       const safePosition = theDeads.find((currValue, i, arr) => currValue + 1 !== arr[i + 1]) || 0;
       const roundedSafePosition = input > 0 ? (safePosition + 1) % input : safePosition;
