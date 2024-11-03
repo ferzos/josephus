@@ -21,7 +21,7 @@ export const useDeadSequence = () => {
                 ? true
                 : deadSequenceItem.hasShownDead,
       }))),
-      1000,
+      500,
     );
   }, [deadSequence]);
 

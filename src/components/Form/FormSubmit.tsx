@@ -23,9 +23,9 @@ function Form(props: Props) {
       <label htmlFor="numberInput">{label}</label>
       <br />
       <input
+        id="numberInput"
         type="number"
         name="numberInput"
-        id="numberInput"
         onChange={(e) => setNumberInput(Number(e.target.value))}
       />
       <button onClick={handleSubmit} type="button">

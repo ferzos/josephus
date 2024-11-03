@@ -2,12 +2,13 @@ import { useKillRotation } from '../../hooks/useKillRotation';
 
 interface Props {
   numberOfPeople: number;
-  onSubmit: (
+  onSubmit: (params: {
     theDeads: Array<{
       index: number;
       hasShownDead: boolean;
-    }>
-  ) => void;
+    }>;
+    finalKiller: number;
+  }) => void;
 }
 
 function KillerInput(props: Props) {
@@ -18,11 +19,15 @@ function KillerInput(props: Props) {
   });
 
   const handleStartsTheKillRotation = () => {
-    const theDeads = createKillRotation(0);
+    const { theDeads, finalKiller } = createKillRotation(0);
 
-    onSubmit(
-      theDeads.map((theDead) => ({ index: theDead, hasShownDead: false })),
-    );
+    onSubmit({
+      theDeads: theDeads.map((theDead) => ({
+        index: theDead,
+        hasShownDead: false,
+      })),
+      finalKiller,
+    });
   };
 
   return (

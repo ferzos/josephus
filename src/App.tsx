@@ -1,12 +1,13 @@
-import { useMemo, useState } from 'react';
+import { ComponentProps, useMemo, useState } from 'react';
 
 import './styles/reset.css';
 import './App.css';
-import Form from './components/Form/Form';
+import { FormNumberChange, FormSubmit } from './components/Form';
 import CircleArea from './components/CircleArea/CircleArea';
 import PeoplePawn from './components/People/People';
 import KillerInput from './components/KillerInput/KillerInput';
 import { useDeadSequence } from './hooks/useDeadSequence';
+import { useCheckAnswer } from './hooks/useCheckAnswer';
 
 const MAX_RADIUS_RATIO = 7;
 const RADIUS_RATIO = 13;
@@ -17,6 +18,11 @@ function App() {
   const [numberOfPeople, setNumberOfPeople] = useState(
     DEFAULT_NUMBER_OF_PEOPLE,
   );
+  const { setFinalKillerAnswer, survivorIndexInputRef } = useCheckAnswer({
+    isAllDead:
+      deadSequence.length > 0
+      && deadSequence.every((deadSequenceItem) => deadSequenceItem.hasShownDead),
+  });
 
   const maxRadius = numberOfPeople * MAX_RADIUS_RATIO;
   const radiusOfPeople = numberOfPeople * RADIUS_RATIO;
@@ -43,18 +49,34 @@ function App() {
     setDeadSequence([]);
   };
 
+  const handleStartKill: ComponentProps<typeof KillerInput>['onSubmit'] = ({
+    theDeads,
+    finalKiller,
+  }) => {
+    setDeadSequence(theDeads);
+    setFinalKillerAnswer(finalKiller);
+  };
+
   return (
     <div className="container">
       <div className="formCenter">
-        <Form
+        <FormSubmit
           label="Input number of people:"
           onSubmit={handleInputNumberOfPeople}
         />
         <br />
+        <FormNumberChange
+          ref={survivorIndexInputRef}
+          label="Who do you think survive?"
+          id="survivorIndex"
+        />
+        <br />
+        <br />
         <KillerInput
           numberOfPeople={numberOfPeople}
-          onSubmit={setDeadSequence}
+          onSubmit={handleStartKill}
         />
+        <br />
       </div>
 
       <CircleArea>
