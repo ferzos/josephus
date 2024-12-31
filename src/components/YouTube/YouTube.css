@@ -1,0 +1,17 @@
+.ytContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.ytSectionTitle {
+  font-size: 300%;
+  margin-bottom: 16px;
+}
+
+.iframeContainer {
+  margin: 0 auto;
+}

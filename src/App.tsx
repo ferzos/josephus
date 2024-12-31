@@ -2,12 +2,16 @@ import { ComponentProps, useMemo, useState } from 'react';
 
 import './styles/reset.css';
 import './App.css';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import ReactPageScroller from 'react-page-scroller';
 import { FormNumberChange, FormSubmit } from './components/Form';
 import CircleArea from './components/CircleArea/CircleArea';
 import PeoplePawn from './components/People/People';
 import KillerInput from './components/KillerInput/KillerInput';
 import { useDeadSequence } from './hooks/useDeadSequence';
 import { useCheckAnswer } from './hooks/useCheckAnswer';
+import { YouTube } from './components/YouTube';
 
 const MAX_RADIUS_RATIO = 7;
 const RADIUS_RATIO = 13;
@@ -58,41 +62,52 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <div className="formCenter">
-        <FormSubmit
-          label="Input number of people:"
-          onSubmit={handleInputNumberOfPeople}
-        />
-        <br />
-        <FormNumberChange
-          ref={survivorIndexInputRef}
-          label="Who do you think survive?"
-          id="survivorIndex"
-        />
-        <br />
-        <br />
-        <KillerInput
-          numberOfPeople={numberOfPeople}
-          onSubmit={handleStartKill}
-        />
-        <br />
-      </div>
+    <ReactPageScroller>
+      <YouTube />
+      <div>Second</div>
+    </ReactPageScroller>
+  );
 
-      <CircleArea>
-        {people.map(({ i, x, y }) => (
-          <PeoplePawn
-            key={i}
-            i={i}
-            x={x}
-            y={y}
-            isKilled={deadSequence.some(
-              (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
-            )}
+  return (
+    // <ReactPageScroller>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="container">
+        <div className="formCenter">
+          <FormSubmit
+            label="Input number of people:"
+            onSubmit={handleInputNumberOfPeople}
           />
-        ))}
-      </CircleArea>
+          <br />
+          <FormNumberChange
+            ref={survivorIndexInputRef}
+            label="Who do you think survive?"
+            id="survivorIndex"
+          />
+          <br />
+          <br />
+          <KillerInput
+            numberOfPeople={numberOfPeople}
+            onSubmit={handleStartKill}
+          />
+          <br />
+        </div>
+
+        <CircleArea>
+          {people.map(({ i, x, y }) => (
+            <PeoplePawn
+              key={i}
+              i={i}
+              x={x}
+              y={y}
+              isKilled={deadSequence.some(
+                (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
+              )}
+            />
+          ))}
+        </CircleArea>
+      </div>
     </div>
+    // </ReactPageScroller>
   );
 }
 
