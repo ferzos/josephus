@@ -1,4 +1,4 @@
-import { useKillRotation } from '../../hooks/useKillRotation';
+import { useKillRotation } from '../hooks/useKillRotation';
 
 interface Props {
   numberOfPeople: number;

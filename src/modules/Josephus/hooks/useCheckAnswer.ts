@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FormNumberChangeHandler } from '../components/Form/FormNumberChange';
+import { FormNumberChangeHandler } from '../Form/FormNumberChange';
 
 interface Params {
   isAllDead: boolean;
