@@ -3,8 +3,8 @@ import './App.css';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import ReactPageScroller from 'react-page-scroller';
-import { YouTube } from './components/YouTube';
-import { Josephus } from './components/Josephus';
+import { YouTube } from './modules/YouTube';
+import { Josephus } from './modules/Josephus';
 
 function App() {
   return (
@@ -12,12 +12,6 @@ function App() {
       <YouTube />
       <Josephus />
     </ReactPageScroller>
-  );
-
-  return (
-    // <ReactPageScroller>
-    <div style={{ display: 'flex', flexDirection: 'column' }} />
-    // </ReactPageScroller>
   );
 }
 
