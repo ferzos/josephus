@@ -1,17 +1,19 @@
 import './styles/reset.css';
 import './App.css';
-
 // eslint-disable-next-line import/no-extraneous-dependencies
-import ReactPageScroller from 'react-page-scroller';
+import Fullpage, { FullPageSections } from '@ap.cx/react-fullpage';
+
 import { YouTube } from './modules/YouTube';
 import { Josephus } from './modules/Josephus';
 
 function App() {
   return (
-    <ReactPageScroller>
-      <YouTube />
-      <Josephus />
-    </ReactPageScroller>
+    <Fullpage>
+      <FullPageSections>
+        <YouTube />
+        <Josephus />
+      </FullPageSections>
+    </Fullpage>
   );
 }
 

@@ -1,4 +1,6 @@
 import { ComponentProps, useMemo, useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { FullpageSection } from '@ap.cx/react-fullpage';
 import { FormNumberChange, FormSubmit } from './Form';
 import { KillerInput } from './KillerInput';
 import { CircleArea } from './CircleArea';
@@ -55,41 +57,43 @@ function Josephus() {
   };
 
   return (
-    <div className="container">
-      <div className="formCenter">
-        <FormSubmit
-          label="Input number of people:"
-          onSubmit={handleInputNumberOfPeople}
-        />
-        <br />
-        <FormNumberChange
-          ref={survivorIndexInputRef}
-          label="Who do you think survive?"
-          id="survivorIndex"
-        />
-        <br />
-        <br />
-        <KillerInput
-          numberOfPeople={numberOfPeople}
-          onSubmit={handleStartKill}
-        />
-        <br />
-      </div>
-
-      <CircleArea>
-        {people.map(({ i, x, y }) => (
-          <People
-            key={i}
-            i={i}
-            x={x}
-            y={y}
-            isKilled={deadSequence.some(
-              (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
-            )}
+    <FullpageSection>
+      <div className="container">
+        <div className="formCenter">
+          <FormSubmit
+            label="Input number of people:"
+            onSubmit={handleInputNumberOfPeople}
           />
-        ))}
-      </CircleArea>
-    </div>
+          <br />
+          <FormNumberChange
+            ref={survivorIndexInputRef}
+            label="Who do you think survive?"
+            id="survivorIndex"
+          />
+          <br />
+          <br />
+          <KillerInput
+            numberOfPeople={numberOfPeople}
+            onSubmit={handleStartKill}
+          />
+          <br />
+        </div>
+
+        <CircleArea>
+          {people.map(({ i, x, y }) => (
+            <People
+              key={i}
+              i={i}
+              x={x}
+              y={y}
+              isKilled={deadSequence.some(
+                (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
+              )}
+            />
+          ))}
+        </CircleArea>
+      </div>
+    </FullpageSection>
   );
 }
 
