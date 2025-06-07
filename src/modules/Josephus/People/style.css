@@ -1,10 +1,17 @@
-.people {
+.person {
   position: absolute;
-  transform-origin: 50% 100%;
-  background: cyan;
-  width: 16px;
-  height: 16px;
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head {
+  border-radius: 50%;
   text-align: center;
-  border-radius: 100%;
+  padding-top: 8px;
+  z-index: 1;
+}
+
+.body {
+  margin-top: 4px;
 }

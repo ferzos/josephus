@@ -3,10 +3,10 @@ import { ComponentProps, useMemo, useState } from 'react';
 import { FullpageSection } from '@ap.cx/react-fullpage';
 import { FormNumberChange, FormSubmit } from './Form';
 import { KillerInput } from './KillerInput';
-import { CircleArea } from './CircleArea';
 import { useDeadSequence } from './hooks/useDeadSequence';
 import { useCheckAnswer } from './hooks/useCheckAnswer';
 import { People } from './People';
+import './style.css';
 
 const MAX_RADIUS_RATIO = 7;
 const RADIUS_RATIO = 13;
@@ -58,7 +58,7 @@ function Josephus() {
 
   return (
     <FullpageSection>
-      <div className="container">
+      <div className="josephusContainer">
         <div className="formCenter">
           <FormSubmit
             label="Input number of people:"
@@ -76,22 +76,22 @@ function Josephus() {
             numberOfPeople={numberOfPeople}
             onSubmit={handleStartKill}
           />
-          <br />
         </div>
 
-        <CircleArea>
-          {people.map(({ i, x, y }) => (
+        <div className="peopleContainer">
+          {people.map(({ i }) => (
             <People
               key={i}
+              isAlive={
+                !deadSequence.some(
+                  (item) => item.index === i && item.hasShownDead,
+                )
+              }
+              numberOfPeople={numberOfPeople}
               i={i}
-              x={x}
-              y={y}
-              isKilled={deadSequence.some(
-                (deadSequenceItem) => deadSequenceItem.index === i && deadSequenceItem.hasShownDead,
-              )}
             />
           ))}
-        </CircleArea>
+        </div>
       </div>
     </FullpageSection>
   );
