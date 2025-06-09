@@ -1,5 +1,4 @@
 import { ComponentProps, useMemo, useState } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { FullpageSection } from '@ap.cx/react-fullpage';
 import { FormNumberChange, FormSubmit } from './Form';
 import { KillerInput } from './KillerInput';
@@ -13,7 +12,9 @@ const RADIUS_RATIO = 13;
 const DEFAULT_NUMBER_OF_PEOPLE = 10;
 
 function Josephus() {
-  const { deadSequence, setDeadSequence } = useDeadSequence();
+  const {
+    deadSequence, setDeadSequence, killSequence, setKillSequence,
+  } = useDeadSequence();
   const [numberOfPeople, setNumberOfPeople] = useState(
     DEFAULT_NUMBER_OF_PEOPLE,
   );
@@ -46,6 +47,8 @@ function Josephus() {
     setNumberOfPeople(inputNumberOfPeople);
     // Reset the deads
     setDeadSequence([]);
+    // Reset the kill sequence
+    setKillSequence([]);
   };
 
   const handleStartKill: ComponentProps<typeof KillerInput>['onSubmit'] = ({
@@ -89,6 +92,10 @@ function Josephus() {
               }
               numberOfPeople={numberOfPeople}
               i={i}
+              isKilling={
+                killSequence.filter((item) => item.haShownKilling).slice(-1)[0]
+                  ?.killerIndex === i
+              }
             />
           ))}
         </div>

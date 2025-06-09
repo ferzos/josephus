@@ -1,9 +1,15 @@
+import { atom, useSetAtom } from 'jotai';
+
+// Global atom to track the current killer index
+export const killersAtom = atom<number[]>([]);
+
 interface Params {
   numberOfPeople: number;
 }
 
 export const useKillRotation = (params: Params) => {
   const { numberOfPeople } = params;
+  const setKillers = useSetAtom(killersAtom);
 
   const createKillRotation = (initialKillerNumber: number) => {
     const josephusLinkedList = Array(numberOfPeople)
@@ -13,10 +19,12 @@ export const useKillRotation = (params: Params) => {
       }));
 
     const theDeads: number[] = [];
+    const theKillers: number[] = [];
 
     let killer = initialKillerNumber;
     let killed: number;
     while (theDeads.length < numberOfPeople - 1) {
+      theKillers.push(killer);
       // Kill next to initial killer
       killed = josephusLinkedList[killer].next;
 
@@ -27,6 +35,8 @@ export const useKillRotation = (params: Params) => {
 
       theDeads.push(killed);
     }
+
+    setKillers(theKillers);
 
     return { theDeads, finalKiller: killer };
   };

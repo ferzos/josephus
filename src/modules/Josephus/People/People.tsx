@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import './style.css';
 
 const CONTAINER_SIZE = 500;
@@ -11,10 +12,13 @@ interface Props {
   i: number;
   numberOfPeople: number;
   isAlive?: boolean;
+  isKilling?: boolean;
 }
 
 export function People(props: Props) {
-  const { i, numberOfPeople, isAlive = false } = props;
+  const {
+    i, numberOfPeople, isAlive = false, isKilling = false,
+  } = props;
 
   // Positioning helpers
   const angleForIndex = (index: number) => (index / numberOfPeople) * 2 * Math.PI;
@@ -32,7 +36,7 @@ export function People(props: Props) {
   const top = CENTER + y;
 
   return (
-    <div
+    <motion.div
       key={i}
       className="person"
       style={{
@@ -41,29 +45,61 @@ export function People(props: Props) {
         width: PERSON_SIZE,
         height: PERSON_SIZE + BODY_HEIGHT,
       }}
+      animate={{
+        scale: isKilling ? 1.3 : 1,
+        rotate: isKilling ? [0, 60, -60, 0] : 0,
+      }}
+      transition={{
+        duration: isKilling ? 0.25 : 0,
+        ease: 'easeInOut',
+      }}
     >
       {/* Head */}
-      <div
+      <motion.div
         className="head"
         style={{
           width: PERSON_SIZE,
           height: PERSON_SIZE,
+        }}
+        animate={{
           backgroundColor: isAlive ? '#f1c27d' : '#d1d5db',
         }}
       >
         {i + 1}
-      </div>
+      </motion.div>
+
       {/* Body */}
-      <div
+      <motion.div
         className="body"
         style={{
           width: BODY_WIDTH,
           height: BODY_HEIGHT,
           borderRadius: BODY_WIDTH / 2,
+        }}
+        animate={{
           backgroundColor: isAlive ? '#3b82f6' : '#d1d5db',
         }}
-      />
-    </div>
+      >
+        {/* Blood animation */}
+        {!isAlive && (
+          <motion.div
+            initial={{ scale: 0, opacity: 1 }}
+            animate={{ scale: 5, opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              transform: 'translateX(-100%)',
+              width: 10,
+              height: 10,
+              backgroundColor: 'red',
+              borderRadius: '50%',
+              zIndex: -1,
+            }}
+          />
+        )}
+      </motion.div>
+    </motion.div>
   );
 }
 

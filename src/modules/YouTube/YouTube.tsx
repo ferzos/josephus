@@ -1,5 +1,4 @@
 import ReactYouTube from 'react-youtube';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { FullpageSection } from '@ap.cx/react-fullpage';
 import './YouTube.css';
 
