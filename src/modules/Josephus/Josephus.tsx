@@ -1,4 +1,5 @@
 import { ComponentProps, useMemo, useState } from 'react';
+import SweetAlert2 from 'react-sweetalert2';
 import { FullpageSection } from '@ap.cx/react-fullpage';
 import { FormNumberChange, FormSubmit } from './Form';
 import { KillerInput } from './KillerInput';
@@ -18,10 +19,12 @@ function Josephus() {
   const [numberOfPeople, setNumberOfPeople] = useState(
     DEFAULT_NUMBER_OF_PEOPLE,
   );
-  const { setFinalKillerAnswer, survivorIndexInputRef } = useCheckAnswer({
+  const {
+    setFinalKillerAnswer, survivorIndexInputRef, sw2Props, setSw2Props,
+  } = useCheckAnswer({
     isAllDead:
-      deadSequence.length > 0
-      && deadSequence.every((deadSequenceItem) => deadSequenceItem.hasShownDead),
+        deadSequence.length > 0
+        && deadSequence.every((deadSequenceItem) => deadSequenceItem.hasShownDead),
   });
 
   const maxRadius = numberOfPeople * MAX_RADIUS_RATIO;
@@ -57,6 +60,7 @@ function Josephus() {
   }) => {
     setDeadSequence(theDeads);
     setFinalKillerAnswer(finalKiller);
+    setSw2Props(undefined);
   };
 
   return (
@@ -100,6 +104,8 @@ function Josephus() {
           ))}
         </div>
       </div>
+
+      <SweetAlert2 {...sw2Props} />
     </FullpageSection>
   );
 }
