@@ -58,9 +58,27 @@ function Josephus() {
     theDeads,
     finalKiller,
   }) => {
+    // Reset sweet alert props
+    setSw2Props(undefined);
+
+    const userAnswer = Number(survivorIndexInputRef.current?.getNumberInput());
+    if (
+      Number.isNaN(userAnswer)
+      || userAnswer <= 0
+      || userAnswer > numberOfPeople
+    ) {
+      setSw2Props({
+        show: true,
+        title: 'Error',
+        text: `Please enter a number between 1 and ${numberOfPeople}`,
+        icon: 'error',
+      });
+
+      return;
+    }
+
     setDeadSequence(theDeads);
     setFinalKillerAnswer(finalKiller);
-    setSw2Props(undefined);
   };
 
   return (
@@ -105,7 +123,7 @@ function Josephus() {
         </div>
       </div>
 
-      <SweetAlert2 {...sw2Props} />
+      <SweetAlert2 {...sw2Props} onConfirm={() => setSw2Props(undefined)} />
     </FullpageSection>
   );
 }

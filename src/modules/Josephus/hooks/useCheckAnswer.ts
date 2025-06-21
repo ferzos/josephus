@@ -19,23 +19,15 @@ export const useCheckAnswer = (params: Params) => {
       const userAnswer = Number(survivorIndexInputRef.current?.getNumberInput()) - 1;
       const isAnswerCorrect = finalKillerAnswer === userAnswer;
       const text = `The remaining person is person number: ${finalKillerAnswer + 1}`;
+      const title = isAnswerCorrect ? 'Correct!' : 'Wrong!';
+      const icon = isAnswerCorrect ? 'success' : 'error';
 
-      if (isAnswerCorrect) {
-        setSw2Props({
-          show: true,
-          title: 'Correct!',
-          // titleText,
-          text,
-          icon: 'success',
-        });
-      } else {
-        setSw2Props({
-          show: true,
-          title: 'Wrong!',
-          text,
-          icon: 'error',
-        });
-      }
+      setSw2Props({
+        show: true,
+        title,
+        text,
+        icon,
+      });
     }
   }, [finalKillerAnswer, isAllDead, setSw2Props]);
 
